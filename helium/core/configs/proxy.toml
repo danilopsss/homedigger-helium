@@ -1,0 +1,6 @@
+[development]
+ENV = "development"
+DEBUG = true
+MORIA_URL = "localhost"
+MORIA_PORT = "58185"
+MORIA_API_VERSION = "v1"

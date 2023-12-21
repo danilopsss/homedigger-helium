@@ -16,5 +16,5 @@ class Users(BaseModel):
     username: String = Column(String(100), nullable=False, index=True, unique=True)
 
     details = relationship("UserDetails", **relation_config)
-    secrets = relationship("UserSecrets", **relation_config)
+    secrets = relationship("UserSecrets", **relation_config, uselist=True)
     access_history = relationship("UserAccessHistory", **relation_config)

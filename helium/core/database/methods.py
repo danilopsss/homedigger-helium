@@ -1,4 +1,4 @@
-from homedigger.core.database import get_session
+from helium.core.database.methods import get_session
 
 
 def save_model_to_db(function):

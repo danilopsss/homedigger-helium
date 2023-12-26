@@ -12,10 +12,20 @@ from helium.core.database.base import BaseModel
 config = context.config
 
 section = config.config_ini_section
-config.set_section_option(section, "HOST", os.environ.get("POSTGRES_HOST", "localhost"))
-config.set_section_option(section, "DATABASE", os.environ.get("POSTGRES_DB", "POSTGRES_DB"))
-config.set_section_option(section, "USERNAME", os.environ.get("POSTGRES_USER", "POSTGRES_USER"))
-config.set_section_option(section, "PASSWORD", os.environ.get("POSTGRES_PASSWORD", "POSTGRES_PASSWORD"))
+config.set_section_option(
+    section, "HOST", os.environ.get("POSTGRES_HOST", "localhost")
+)
+config.set_section_option(
+    section, "DATABASE", os.environ.get("POSTGRES_DB", "POSTGRES_DB")
+)
+config.set_section_option(
+    section, "USERNAME", os.environ.get("POSTGRES_USER", "POSTGRES_USER")
+)
+config.set_section_option(
+    section,
+    "PASSWORD",
+    os.environ.get("POSTGRES_PASSWORD", "POSTGRES_PASSWORD"),
+)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

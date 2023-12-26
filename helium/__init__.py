@@ -11,10 +11,10 @@ app.config.update(local_configs)
 
 
 # Register the blueprint with the app
-# from .services.proxy.authservice.routes import proxy_bp
+from .services.authservice.routes import auth_bp
 
-# app.register_blueprint(proxy_bp)
+app.register_blueprint(auth_bp, url_prefix="/api/v1/auth")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

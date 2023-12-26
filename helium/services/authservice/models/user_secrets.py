@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from helium.core.database.base import BaseModel
 from sqlalchemy.dialects.postgresql import UUID
+from helium.core.database.base import BaseModel
 
 
 class UserSecrets(BaseModel):
@@ -9,5 +9,7 @@ class UserSecrets(BaseModel):
 
     secret: str = Column(String, nullable=False)
 
-    user_id = Column(UUID, ForeignKey("user.id", ondelete="NO ACTION"))
-    user = relationship("Users", lazy=True, uselist=False, back_populates="user_secrets")
+    user_id = Column(UUID, ForeignKey("user.id"))
+    user = relationship(
+        "Users", lazy=True, uselist=False, back_populates="secrets"
+    )

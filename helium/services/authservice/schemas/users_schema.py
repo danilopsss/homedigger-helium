@@ -1,19 +1,21 @@
 from helium.services.authservice.models import Users
 from helium.core.schemas.base_schema import BaseModelSchema
-from helium.services.authservice.schemas import (
+from typing import Optional, List
+from helium.services.authservice.schemas.users_details_schema import (
     UsersDetailsSchema,
+)
+from helium.services.authservice.schemas.users_secrets_schema import (
+    UsersSecretsSchema,
+)
+from helium.services.authservice.schemas.users_access_history import (
     UserAccessHistorySchema,
-    UsersSecretsSchema
 )
 
 
-from typing import Optional
-
-
 class UserSchema(BaseModelSchema):
-    __dbmodel__ = Users
+    __orm_model__ = Users
 
     username: str
     details: Optional[UsersDetailsSchema]
-    secrets: Optional[UsersSecretsSchema]
-    history: Optional[UserAccessHistorySchema]
+    secrets: List[Optional[UsersSecretsSchema]]
+    access_history: List[Optional[UserAccessHistorySchema]]

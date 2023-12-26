@@ -12,22 +12,22 @@ def client():
 
 @pytest.fixture(autouse=True)
 def mocked_secrets():
-    return [
-        "my_very_secret_secret"
-    ]
+    return [{"secret": "my_very_secret_secret"}]
+
 
 @pytest.fixture(autouse=True)
 def mocked_user_details():
     return {
         "name": "John Doe",
-        "birthday": datetime(1990, 1, 1),
-        "email": "johnd@provider.com"
+        "birthday": datetime(1990, 1, 1).timestamp(),
+        "email": "johnd@provider.com",
     }
 
+
 @pytest.fixture(autouse=True)
-def mocked_user(mocked_user_details):
+def mocked_user(mocked_user_details, mocked_secrets):
     return {
         "username": "johnd",
         "details": mocked_user_details,
-        "secrets": ["my_sev"]
+        "secrets": mocked_secrets,
     }

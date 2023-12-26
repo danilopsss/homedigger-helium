@@ -1,15 +1,28 @@
-import json
-from flask import jsonify, request, Blueprint
-from gatekeeper.core.utils.decorators import resolve_proxy_path
-from gatekeeper.services.proxy.authservice.schemas import ProxyAuthSchema
+from flask import request, jsonify, Blueprint
+from helium.services.utils.api_types import ApiResponse
+from helium.services.authservice.schemas import UserSchema
+from helium.services.authservice.utils import create_db_event
 
 
-proxy_bp = Blueprint('proxy', __name__, url_prefix='/gk')
+auth_bp = Blueprint("authservice", __name__, url_prefix="/auth")
 
 
-@proxy_bp.route('/authenticate', methods=["POST"])
-@resolve_proxy_path
-def check_compass():
-    request_received = request.data.decode('utf-8')
-    data = json.loads(request_received)
-    return ProxyAuthSchema(**data)
+@auth_bp.route("/register", methods=["POST"])
+def register_user():
+    try:
+        event = create_db_event(request, "USER_CREATED")
+        user_data = {**request.json, **event}
+        new_user = UserSchema(**user_data).save()
+        return (
+            jsonify(
+                {
+                    "user": new_user.username,
+                    "status": ApiResponse.CREATED.message,
+                }
+            ),
+            ApiResponse.CREATED.code,
+        )
+    except Exception as e:
+        # TODO: track the errors in order to provide adequate
+        # exception handling with appropriate error codes.
+        return {"error": str(e)}, 500

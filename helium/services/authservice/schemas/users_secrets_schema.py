@@ -3,6 +3,6 @@ from helium.services.authservice.models import UserSecrets
 
 
 class UsersSecretsSchema(BaseModelSchema):
-    __dbmodel__ = UserSecrets
+    __orm_model__ = UserSecrets
 
     secret: str

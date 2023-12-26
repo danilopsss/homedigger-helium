@@ -13,6 +13,7 @@ def __get_url():
         os.environ.get("POSTGRES_DB", "POSTGRES_DB"),
     )
 
+
 def __db_session():
     db_url = __get_url()
     engine = sqlalchemy.create_engine(db_url)

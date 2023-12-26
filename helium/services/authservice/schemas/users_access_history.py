@@ -3,7 +3,7 @@ from helium.services.authservice.models import UserAccessHistory, Events
 
 
 class UserAccessHistorySchema(BaseModelSchema):
-    __dbmodel__ = UserAccessHistory
+    __orm_model__ = UserAccessHistory
 
     event: Events
     ip: str

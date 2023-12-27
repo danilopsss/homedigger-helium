@@ -6,3 +6,5 @@ class UsersSecretsSchema(BaseModelSchema):
     __orm_model__ = UserSecrets
 
     secret: str
+    salt: str = ""
+    another_secret: str = ""

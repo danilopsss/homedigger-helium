@@ -8,6 +8,8 @@ class UserSecrets(BaseModel):
     __tablename__ = "user_secrets"
 
     secret: str = Column(String, nullable=False)
+    salt: str = Column(String, nullable=False)
+    another_secret: str = Column(String, nullable=False)
 
     user_id = Column(UUID, ForeignKey("user.id"))
     user = relationship(

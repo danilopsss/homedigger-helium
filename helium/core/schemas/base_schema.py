@@ -1,12 +1,22 @@
 import enum
 import typing
-from collections import namedtuple
 from pydantic import BaseModel, ConfigDict
 from helium.core.database.methods import save_model_to_db, ModelPair
 
 
-__PRITIMIVE_TYPES__ = [str, int, float, bool, list, dict, enum.EnumType]
-__DECLARED_TYPES__ = [typing._GenericAlias]
+__PRITIMIVE_TYPES__ = [
+    str,
+    int,
+    float,
+    bool,
+    list,
+    dict,
+    enum.EnumType,
+    typing._UnionGenericAlias,
+]
+__DECLARED_TYPES__ = [
+    typing._GenericAlias,
+]
 
 
 class BaseModelSchema(BaseModel):

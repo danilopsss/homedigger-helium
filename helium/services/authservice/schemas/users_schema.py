@@ -16,6 +16,6 @@ class UserSchema(BaseModelSchema):
     __orm_model__ = Users
 
     username: str
-    details: Optional[UsersDetailsSchema]
-    secrets: List[Optional[UsersSecretsSchema]]
-    access_history: List[Optional[UserAccessHistorySchema]]
+    details: UsersDetailsSchema
+    secrets: UsersSecretsSchema
+    access_history: List[UserAccessHistorySchema]

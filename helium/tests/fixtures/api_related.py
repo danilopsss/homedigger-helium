@@ -12,7 +12,7 @@ def client():
 
 @pytest.fixture(autouse=True)
 def mocked_secrets():
-    return [{"secret": "my_very_secret_secret"}]
+    return {"secret": "my_very_secret_secret"}
 
 
 @pytest.fixture(autouse=True)

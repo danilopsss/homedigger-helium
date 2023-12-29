@@ -1,9 +1,12 @@
 from flask import request, jsonify, Blueprint
 from helium.core.utils.secrets import Secrets
+from helium.services.authservice.models import Users
 from helium.services.utils.api_types import ApiResponse
 from helium.services.authservice.schemas import UserSchema
 from helium.services.authservice.utils import create_db_event
 from helium.services.authservice.models.user_access_history import Events
+
+from psycopg2.errors import UniqueViolation
 
 
 auth_bp = Blueprint("authservice", __name__, url_prefix="/auth")
@@ -25,12 +28,12 @@ def register_user():
             ),
             ApiResponse.CREATED.code,
         )
-    except Exception as e:
-        # TODO: track the errors in order to provide adequate
-        # exception handling with appropriate error codes.
-        return {"error": str(e)}, 500
+    except UniqueViolation:
+        return {"error": "Unique constraint violation."}, 500
 
 
 @auth_bp.route("/authenticate", methods=["POST"])
 def generate_token():
+    # todo: authentication
+    Users(**request.json)
     return {}, 200

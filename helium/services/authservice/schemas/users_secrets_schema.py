@@ -7,4 +7,4 @@ class UsersSecretsSchema(BaseModelSchema):
 
     secret: str
     salt: str = ""
-    another_secret: str = ""
+    personal_key: str = ""

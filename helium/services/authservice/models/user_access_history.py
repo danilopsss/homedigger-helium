@@ -15,13 +15,9 @@ class Events(PyEnum):
 class UserAccessHistory(BaseModel):
     __tablename__ = "user_access_history"
 
-    event: String = Column(Enum(Events), nullable=False, index=True)
+    event: String = Column(Enum(Events), nullable=False)
     ip: String = Column(String, nullable=False)
-    user_agent: String = Column(
-        String(100), nullable=False, index=True, unique=True
-    )
+    user_agent: String = Column(String(100), nullable=False)
 
     user_id = Column(UUID, ForeignKey("user.id"))
-    user = relationship(
-        "Users", lazy=True, uselist=False, back_populates="access_history"
-    )
+    user = relationship("Users", lazy=True, uselist=False, back_populates="access_history")

@@ -1,5 +1,6 @@
 import enum
 import typing
+from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict
 from helium.core.database.methods import save_model_to_db, ModelPair
 
@@ -11,8 +12,9 @@ __PRITIMIVE_TYPES__ = [
     bool,
     list,
     dict,
+    date,
+    datetime,
     enum.EnumType,
-    typing._UnionGenericAlias,
 ]
 __DECLARED_TYPES__ = [
     typing._GenericAlias,
@@ -34,13 +36,8 @@ class BaseModelSchema(BaseModel):
             annotation = getattr(value, "annotation")
             if type(annotation) == enum.EnumType:
                 continue
-            if (
-                annotation not in __PRITIMIVE_TYPES__
-                and type(annotation) not in __DECLARED_TYPES__
-            ):
-                orm_model = BaseModelSchema._build_orm_objects(
-                    getattr(data, key)
-                )
+            if annotation not in __PRITIMIVE_TYPES__ and type(annotation) not in __DECLARED_TYPES__:
+                orm_model = BaseModelSchema._build_orm_objects(getattr(data, key))
                 setattr(data, key, orm_model)
             elif type(annotation) in __DECLARED_TYPES__:
                 items_list = []

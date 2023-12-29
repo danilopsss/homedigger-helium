@@ -6,9 +6,7 @@ from hashlib import pbkdf2_hmac
 
 class Secrets:
     def __init__(self, secrets: dict):
-        self._secrets = {
-            key: bytes(value.encode("utf-8")) for key, value in secrets.items()
-        }
+        self._secrets = {key: bytes(value.encode("utf-8")) for key, value in secrets.items()}
 
     @property
     def secret(self):
@@ -27,9 +25,7 @@ class Secrets:
     @property
     def _another_secret(self):
         if not self.secret.get("another_secret"):
-            self.secret["another_secret"] = b64encode(
-                self.generate_random_bytes
-            )
+            self.secret["another_secret"] = b64encode(self.generate_random_bytes)
         return b64encode(self.secret.get("another_secret"))
 
     def hash_password(self):
@@ -47,6 +43,6 @@ class Secrets:
             "secrets": {
                 "salt": self._salt,
                 "secret": password,
-                "another_secret": self._another_secret,
+                "personal_key": self._another_secret,
             }
         }

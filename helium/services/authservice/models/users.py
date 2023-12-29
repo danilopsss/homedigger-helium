@@ -13,9 +13,7 @@ relation_config = {
 class Users(BaseModel):
     __tablename__ = "user"
 
-    username: String = Column(
-        String(100), nullable=False, index=True, unique=True
-    )
+    username: String = Column(String(100), nullable=False, index=True, unique=True)
 
     details = relationship("UserDetails", **relation_config)
     secrets = relationship("UserSecrets", **relation_config)

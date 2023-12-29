@@ -12,15 +12,9 @@ from helium.core.database.base import BaseModel
 config = context.config
 
 section = config.config_ini_section
-config.set_section_option(
-    section, "HOST", os.environ.get("POSTGRES_HOST", "localhost")
-)
-config.set_section_option(
-    section, "DATABASE", os.environ.get("POSTGRES_DB", "POSTGRES_DB")
-)
-config.set_section_option(
-    section, "USERNAME", os.environ.get("POSTGRES_USER", "POSTGRES_USER")
-)
+config.set_section_option(section, "HOST", os.environ.get("POSTGRES_HOST", "localhost"))
+config.set_section_option(section, "DATABASE", os.environ.get("POSTGRES_DB", "POSTGRES_DB"))
+config.set_section_option(section, "USERNAME", os.environ.get("POSTGRES_USER", "POSTGRES_USER"))
 config.set_section_option(
     section,
     "PASSWORD",
@@ -82,9 +76,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

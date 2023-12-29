@@ -1,2 +1,3 @@
-from .api_related import *
-from .file_system_related import *
+from .api import *
+from .filesystem import *
+from .internals import *
